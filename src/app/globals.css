@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #3E2723;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ghee-300: var(--color-ghee-300);
+  --color-ghee-400: var(--color-ghee-400);
+  --color-ghee-500: var(--color-ghee-500);
+  --color-ghee-600: var(--color-ghee-600);
+  --color-earth-800: var(--color-earth-800);
+  --color-earth-900: var(--color-earth-900);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1C1917;
+    --foreground: #FDFBF7;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
