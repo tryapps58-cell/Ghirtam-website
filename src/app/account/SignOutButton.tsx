@@ -1,0 +1,26 @@
+'use client'
+
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+
+export default function SignOutButton() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  }
+
+  return (
+    <button
+      id="account-signout-btn"
+      onClick={handleSignOut}
+      suppressHydrationWarning
+      className="btn-outline py-3 px-6 text-sm"
+    >
+      Sign Out
+    </button>
+  );
+}

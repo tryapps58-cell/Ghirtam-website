@@ -2,39 +2,246 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+/* ─── CSS Custom Properties ────────────────────────────────────────────────── */
 :root {
-  --background: #FDFBF7;
-  --foreground: #3E2723;
+  --sacred-gold:   #D4A844;
+  --earth-brown:   #2C1A0E;
+  --ivory-cream:   #FDF6E3;
+  --forest-sage:   #5C7A4E;
+  --terracotta:    #A0522D;
+  --surface:       #FFF9EB;
+  --on-surface:    #1E1C10;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-ghee-300: var(--color-ghee-300);
-  --color-ghee-400: var(--color-ghee-400);
-  --color-ghee-500: var(--color-ghee-500);
-  --color-ghee-600: var(--color-ghee-600);
-  --color-earth-800: var(--color-earth-800);
-  --color-earth-900: var(--color-earth-900);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─── Base Resets ───────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1C1917;
-    --foreground: #FDFBF7;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html[data-scroll-behavior="smooth"] {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body;
+    background-color: #FFF9EB;
+  }
+
+  /* Headings use display/serif font */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Focus ring — accessible but on-brand */
+  :focus-visible {
+    outline: 2px solid #D4A844;
+    outline-offset: 3px;
+  }
+
+  /* Text selection */
+  ::selection {
+    background-color: #D4A844;
+    color: #2C1A0E;
+  }
+
+  /* Smooth image rendering */
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Anchor reset */
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+/* ─── Component Layer ───────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Containers ──────────────────────────────────────────────────────────── */
+  .container-brand {
+    @apply max-w-container mx-auto px-5 md:px-8 lg:px-margin-desktop;
+  }
+
+  /* ── Section Spacing ─────────────────────────────────────────────────────── */
+  .section-padding {
+    @apply py-section-gap-sm lg:py-section-gap;
+  }
+
+  /* ── Section Heading ─────────────────────────────────────────────────────── */
+  .section-heading {
+    @apply font-display text-headline-xl text-on-background text-center;
+  }
+
+  .section-divider {
+    @apply w-16 h-px bg-sacred-gold mx-auto mt-4 mb-12;
+  }
+
+  /* ── Gold Divider Line ───────────────────────────────────────────────────── */
+  .divider-gold {
+    @apply w-16 h-0.5 bg-sacred-gold;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-4
+           bg-sacred-gold text-earth-brown
+           font-body font-bold text-label-md tracking-widest uppercase
+           transition-all duration-300
+           hover:bg-[#C49832] hover:shadow-gold-md
+           active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-4
+           bg-transparent border border-sacred-gold text-sacred-gold
+           font-body font-bold text-label-md tracking-widest uppercase
+           transition-all duration-300
+           hover:bg-sacred-gold/10
+           active:scale-95;
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-4
+           bg-earth-brown text-primary-fixed-dim
+           font-body font-bold text-label-md tracking-widest uppercase
+           transition-all duration-300
+           hover:bg-[#1a0f08]
+           active:scale-95;
+  }
+
+  .btn-link {
+    @apply inline-flex items-center gap-2
+           text-earth-brown font-body font-bold text-label-md
+           border-b border-sacred-gold pb-0.5
+           tracking-widest uppercase
+           transition-colors duration-300
+           hover:text-sacred-gold;
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────────── */
+  .card-product {
+    @apply bg-white border border-outline-variant/50
+           transition-shadow duration-300
+           hover:shadow-gold-md;
+  }
+
+  /* ── Badges ──────────────────────────────────────────────────────────────── */
+  .badge-bestseller {
+    @apply bg-sacred-gold text-earth-brown
+           text-label-sm px-3 py-1
+           font-bold tracking-widest uppercase;
+  }
+
+  .badge-new {
+    @apply bg-forest-sage text-white
+           text-label-sm px-3 py-1
+           font-bold tracking-widest uppercase;
+  }
+
+  .badge-sale {
+    @apply bg-terracotta text-white
+           text-label-sm px-3 py-1
+           font-bold tracking-widest uppercase;
+  }
+
+  /* ── Trust Badge Strip ───────────────────────────────────────────────────── */
+  .trust-item {
+    @apply flex items-center gap-3 text-on-surface-variant;
+  }
+
+  /* ── Input ───────────────────────────────────────────────────────────────── */
+  .input-brand {
+    @apply w-full bg-transparent border-b border-outline-variant
+           py-3 px-0
+           font-body text-body-md text-on-surface
+           placeholder:text-on-surface-variant/60
+           focus:outline-none focus:border-sacred-gold
+           transition-colors duration-200;
+  }
+
+  /* ── Announcement bar scrolling text ────────────────────────────────────── */
+  .marquee-wrapper {
+    @apply overflow-hidden whitespace-nowrap;
+  }
+  .marquee-track {
+    @apply inline-flex animate-marquee;
+  }
+
+  /* ── Overlay gradient on hero ────────────────────────────────────────────── */
+  .hero-overlay {
+    @apply absolute inset-0
+           bg-gradient-to-b from-earth-brown/50 via-earth-brown/30 to-earth-brown/60;
+  }
 }
 
+/* ─── Utility Layer ─────────────────────────────────────────────────────────── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Grain texture overlay */
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.04;
+  }
+
+  /* Gold text gradient */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #F4C842 0%, #D4A844 50%, #A07830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: #FAF3E0; }
+  ::-webkit-scrollbar-thumb  { background: #D4A844; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C49832; }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
+
+/* ─── Prose styles for product descriptions ──────────────────────────────────── */
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #4E4636;
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-size: 16px;
+}
+
